@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const Body = ({ setClearscreen }) => {
+const Body = ({ setClearscreen,clearScreen,dark,download  }) => {
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
@@ -11,8 +11,6 @@ const Body = ({ setClearscreen }) => {
     canvas.width = window.innerWidth * 2;
     canvas.height = window.innerHeight * 2;
 
-    // console.log(canvas.width)
-    // console.log(canvas.height)
 
     canvas.style.width = `${window.innerWidth}px`;
     canvas.style.height = `${window.innerHeight}px`;
@@ -23,13 +21,24 @@ const Body = ({ setClearscreen }) => {
     context.strokeStyle = "black"
     context.lineWidth = 5
     contextRef.current = context;
-  }, [])
+
+    if(clearScreen){
+      context.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    if(dark){
+      console.log("dark")
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.strokeStyle = "white"
+    }
+
+  }, [clearScreen,dark])
 
   const startDrawing = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
     contextRef.current.beginPath()
     contextRef.current.moveTo(offsetX, offsetY)
     setIsDrawing(true)
+    setClearscreen(false)
   }
 
   const endDrawing = () => {
@@ -48,9 +57,13 @@ const Body = ({ setClearscreen }) => {
     contextRef.current.stroke()
   }
 
+  if(download){
+    console.log("Downloading soon")
+  }
+
   return (
     <>
-      <canvas
+      <canvas id="canvas"
         onMouseDown={startDrawing}
         onMouseUp={endDrawing}
         onMouseMove={draw}

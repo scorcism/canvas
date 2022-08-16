@@ -6,13 +6,14 @@ import { useState } from "react";
 
 function App() {
 
-  const { clearScreen, setClearscreen } = useState(false);
-
+  const [ clearScreen, setClearscreen ] = useState(false);
+  const [ dark, setDark ] = useState(false);
+  const [ download,setDownload ] = useState(false)
 
   return (
     <>
-      <Header setClearscreen={setClearscreen} />
-      <Body setClearscreen={setClearscreen} clearScreen={clearScreen} />
+      <Header setClearscreen={setClearscreen} dark={dark} setDark={setDark} setDownload={setDownload }/>
+      <Body setClearscreen={setClearscreen} clearScreen={clearScreen} dark={dark} download={download}/>
     </>
   );
 }

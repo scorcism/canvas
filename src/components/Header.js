@@ -1,9 +1,26 @@
+import { useState } from "react";
 
 
-function Header({ setClearscreen }) {
+function Header({ setClearscreen, dark, setDark,setDownload  }) {
+
+    const [themeOption, setThemeOption] = useState("Dark Theme")
 
     const clearScreen = () => {
         setClearscreen(true);
+    }
+
+    const changeTheme = () => {
+        if (dark) {
+            setDark(false)
+            setThemeOption("Dark Theme")
+            return
+        }
+        setDark(true)
+        setThemeOption("Light Theme")
+    }
+
+    const download = () => {
+        setDownload(true);
     }
 
     return (
@@ -12,15 +29,17 @@ function Header({ setClearscreen }) {
                 <div className="title"><h2>canvas</h2></div>
                 <div className="user_option">
                     <div className="color_option">
-                        <a>Black</a>
-                        <a >White</a>
+                        <a onClick={changeTheme}>{themeOption}</a>
                     </div>
                     <div className="select">
                         <a onClick={clearScreen}>Clear Screen</a>
-                        <a>Download</a>
+                        <a onClick={download}>Download</a>
                     </div>
                 </div>
             </div>
+
+            <script src="Scripts/jquer_latest_2.11_.min.js" type="text/javascript"></script>
+            <script src="Scripts/html2canvas.js" type="text/javascript"></script>
         </>
     )
 }
