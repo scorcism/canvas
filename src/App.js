@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <Header setClearscreen={setClearscreen} dark={dark} setDark={setDark} setDownload={setDownload }/>
-      <Body setClearscreen={setClearscreen} clearScreen={clearScreen} dark={dark} download={download}/>
+      <Body setClearscreen={setClearscreen} clearScreen={clearScreen} dark={dark} download={download} setDownload={setDownload}/>
     </>
   );
 }

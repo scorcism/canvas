@@ -7,10 +7,10 @@
   box-sizing: border-box;
 }
 .head{
-  background-color: rgb(197, 193, 193);
+  background-color:#dcdde1;
   height: 50px;
   width: 100vw;
-  border-bottom: 3px solid purple;
+  border-bottom: 3px solid #483a8f;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

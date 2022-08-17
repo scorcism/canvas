@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import html2canvas from "html2canvas";
 
-const Body = ({ setClearscreen,clearScreen,dark,download  }) => {
+const Body = ({ setClearscreen, clearScreen, dark, download, setDownload }) => {
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
@@ -22,16 +23,16 @@ const Body = ({ setClearscreen,clearScreen,dark,download  }) => {
     context.lineWidth = 5
     contextRef.current = context;
 
-    if(clearScreen){
+    if (clearScreen) {
       context.clearRect(0, 0, canvas.width, canvas.height);
     }
-    if(dark){
+    if (dark) {
       console.log("dark")
       context.fillRect(0, 0, canvas.width, canvas.height);
       context.strokeStyle = "white"
     }
 
-  }, [clearScreen,dark])
+  }, [clearScreen, dark])
 
   const startDrawing = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
@@ -57,8 +58,35 @@ const Body = ({ setClearscreen,clearScreen,dark,download  }) => {
     contextRef.current.stroke()
   }
 
-  if(download){
-    console.log("Downloading soon")
+  const getDate = () => {
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    let h = date.getHours();
+    let m = date.getMinutes();
+    let s = date.getSeconds();
+
+    let time = `${day}/${month}/${year} at ${h}:${m}:${s}`
+    return time
+  }
+
+
+  if (download) {
+    setDownload(false)
+    html2canvas(document.getElementById("canvas"),
+      {
+        allowTaint: true,
+        useCORS: true
+      }).then(function (canvas) {
+        let anchorTag = document.createElement("a");
+        anchorTag.download = `${getDate()}-canvas.png`;
+        anchorTag.href = canvas.toDataURL();
+        anchorTag.target = '_blank';
+        anchorTag.click();
+      });
+
   }
 
   return (
