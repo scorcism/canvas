@@ -37,9 +37,6 @@ function Header({ setClearscreen, dark, setDark,setDownload  }) {
                     </div>
                 </div>
             </div>
-
-            <script src="Scripts/jquer_latest_2.11_.min.js" type="text/javascript"></script>
-            <script src="Scripts/html2canvas.js" type="text/javascript"></script>
         </>
     )
 }
